@@ -1,12 +1,16 @@
+import Bookings from "../models/Bookings.js";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 
 
 export const getAllUsers = async(req,res,next) => {
 
+    
         let users;
         try{
+           
          users = await User.find();
+            
 
 } catch(err) {
     return console.log(err);
@@ -20,6 +24,26 @@ if(!users){
 return res.status(200).json({users});
 };
 
+export const getUserById = async(req,res,next) => {
+
+    const id = req.params.id;
+    let users;
+    try{
+       
+     users = await User.findById(id);
+        
+
+} catch(err) {
+return console.log(err);
+}
+
+if(!users){
+return res.status(500).json({message : "Unexpected error occured"});
+}
+
+
+return res.status(200).json({users});
+};
 
 export const signUp = async (req,res,next) => {
 
@@ -95,15 +119,18 @@ export const login = async (req,res,next) => {
     }catch(err){
         return console.log(err);
     }
+
+    const isPasswordCorrect =bcrypt.compareSync(password , existingUser.password);
+    
     if(!isPasswordCorrect){
         return res.status(404).json({message : "Unable to find user from this ID"});
     }
-    const isPasswordCorrect =bcrypt.compareSync(password , existingUser.password);
+   
 
     if(!isPasswordCorrect){
         return res.status(400).json({message : "Incorrect Password"});
     }
-    return res.status(200).json({message:"login successfull"});
+    return res.status(200).json({message:"login successfull", id : existingUser._id});
 
 
 

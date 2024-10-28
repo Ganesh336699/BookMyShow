@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
 import userRouter from "./routes/user-routes.js";
 import adminRouter from "./Routes/admin-routes.js";
 import movieRouter from "./Routes/movie-routes.js";
@@ -13,6 +14,7 @@ const app = express();
 
 
 //middlewares
+app.use(cors());
 app.use(express.json());
 app.use("/user" , userRouter);
 app.use("/admin",adminRouter);
