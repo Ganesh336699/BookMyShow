@@ -21,13 +21,13 @@ app.use("/admin",adminRouter);
 app.use("/movie",movieRouter);
 app.use("/booking",bookingRouter);
 
-
+const PORT = process.env.PORT || 5000;
 
 //connecting to database
 mongoose
 .connect(`mongodb+srv://koreganesh114:${process.env.MONGODB_PASSWORD}@moviebookingcluster.nekon.mongodb.net/`
 
-).then(()=>app.listen(5000, () => {
+).then(()=>app.listen(PORT, () => {
     console.log(`connected to DB and localhost port ${5000}`);
 }
 ))
