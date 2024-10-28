@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
-import userRouter from "./routes/user-routes.js";
+import userRouter from "./Routes/user-routes.js";
 import adminRouter from "./Routes/admin-routes.js";
 import movieRouter from "./Routes/movie-routes.js";
 import bookingRouter from "./Routes/booking-routes.js";
