@@ -17,8 +17,8 @@ function App() {
 
   const isAdminLoggedIn =  useSelector((state) => state.admin.isLoggedIn);
   const isUserLoggedIn =  useSelector((state) => state.user.isLoggedIn);
-  console.log("isAdminLoggedIn" , isAdminLoggedIn);
-   console.log("isUserLoggedIn :" ,  isUserLoggedIn);
+  // console.log("isAdminLoggedIn" , isAdminLoggedIn);
+  //  console.log("isUserLoggedIn :" ,  isUserLoggedIn);
   
   return (
     <div >
@@ -27,13 +27,31 @@ function App() {
     <Routes>
      <Route path="/" element = {<Homepage/>} />
      <Route path="/movies" element = {<Movies/>} />
-     <Route path="/admin" element = {<Admin/>} />
-     <Route path="/auth" element = {<Auth/>} />
+ {!isAdminLoggedIn && !isUserLoggedIn && (
+             <>
+              <Route path="/admin" element = {<Admin/>} />
+              <Route path="/auth" element = {<Auth/>} />
+              </>
+            )
+            }
+    
+   {isUserLoggedIn  && !isAdminLoggedIn && (
+    <>
      <Route path="/user" element = {<UseProfile/>} />
-     <Route path="/adminProfile" element = {<AdminProfile/>} />
-     <Route path="/add" element = {<AddMovie/>} />
-
      <Route path="/booking/:id" element = {<Booking/>} />
+     </>
+    )
+    }
+    {isAdminLoggedIn && !isUserLoggedIn && (
+      <>
+       <Route path="/adminProfile" element = {<AdminProfile/>} />
+       <Route path="/add" element = {<AddMovie/>} />
+      
+      </>
+    )
+    }
+    
+    
     </Routes>
    </section>
     </div>

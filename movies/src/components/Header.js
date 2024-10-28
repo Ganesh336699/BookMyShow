@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import {AppBar ,Autocomplete,Tab,Tabs,TextField,Toolbar} from "@mui/material";
+import {AppBar ,Autocomplete,IconButton,Tab,Tabs,TextField,Toolbar} from "@mui/material";
 import MovieIcon from '@mui/icons-material/Movie';
 import {Box} from "@mui/system";
 import { getAllMovies } from '../api-helpers/api-helpers';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { adminActions, userActions } from '../store';
 
 
 const Header = () => {
 
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAdminLoggedIn =  useSelector((state) => state.admin.isLoggedIn);
   const isUserLoggedIn =  useSelector((state) => state.user.isLoggedIn);
@@ -21,7 +21,7 @@ const Header = () => {
         getAllMovies().then((data)=>setmovies(data.movies))
                 .catch((err)=> console.log(err));
     },[]);
-    console.log(movies);
+    // console.log(movies);
 
   const logout = (isAdmin) => {
 
@@ -29,17 +29,29 @@ const Header = () => {
     dispatch(isAdmin ? adminActions.logout() : userActions.logout());
   };
 
+    const handleChange = (e,val) => {
 
+      const movie = movies.find((m) => m.title === val);
+
+        if(isUserLoggedIn){
+          navigate(`/booking/${movie._id}`);
+        }
+      
+    };
 
 
   return  <AppBar position='sticky' sx={{bgcolor:"#2b2d42"}}>
     <Toolbar>
        <Box width ={'20%'}>
-         <MovieIcon/>
+        <IconButton LinkComponent={Link} to="/">
+        <MovieIcon />
+        </IconButton>
+        
        </Box>
        <Box width={'30%'} margin={"auto"}>
        <Autocomplete
-      
+        
+        onChange={handleChange}
         freeSolo
         options={movies && movies.map((option) => option.title)}
         renderInput={(params) =>
@@ -51,25 +63,32 @@ const Header = () => {
        </Box>
        <Box display={'flex'}>
         <Tabs 
-        textColor='inherit'
+         textColor='inherit'
          indicatorColor='secondary'
          value={value} 
-        onChange = {(e,val)=>setvalue(val)}>
-            <Tab LinkComponent = {Link} to="/movies" label="Movies" />
-            {!isAdminLoggedIn && !isUserLoggedIn && <>
-              <Tab LinkComponent = {Link} to="/admin" label="Admin" />
-            <Tab LinkComponent = {Link} to="/auth" label="Auth " />
-            </>}
-            {isUserLoggedIn && <>
-              <Tab LinkComponent = {Link} to="/user" label="Profile" />
-              <Tab onClick = {() => logout(false)} LinkComponent = {Link} to="/" label="Logout " />
-            </>}
-            {isAdminLoggedIn && <>
-              <Tab LinkComponent = {Link} to="/add" label="Add Movie" />
-              <Tab LinkComponent = {Link} to="/adminProfile" label="Profile" />
-              <Tab onClick = {() => logout(true)} LinkComponent = {Link} to="/" label="Logout " />
-            </>}
-          
+         onChange = {(e,val)=>setvalue(val)}>
+         
+         
+         <Tab key="movies" LinkComponent={Link} to="/movies" label="Movies" />
+  {!isAdminLoggedIn && !isUserLoggedIn && (
+    [
+      <Tab key="admin" LinkComponent={Link} to="/admin" label="Admin" />,
+      <Tab key="auth" LinkComponent={Link} to="/auth" label="Auth" />
+    ]
+  )}
+  {isUserLoggedIn && (
+    [
+      <Tab key="userProfile" LinkComponent={Link} to="/user" label="Profile" />,
+      <Tab key="userLogout" onClick={() => logout(false)} LinkComponent={Link} to="/" label="Logout" />
+    ]
+  )}
+  {isAdminLoggedIn && (
+    [
+      <Tab key="addMovie" LinkComponent={Link} to="/add" label="Add Movie" />,
+      <Tab key="adminProfile" LinkComponent={Link} to="/admin" label="Profile" />,
+      <Tab key="adminLogout" onClick={() => logout(true)} LinkComponent={Link} to="/" label="Logout" />
+    ]
+  )}
 
         </Tabs>
 
