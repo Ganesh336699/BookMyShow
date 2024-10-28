@@ -119,12 +119,14 @@ export const login = async (req,res,next) => {
     }catch(err){
         return console.log(err);
     }
+    
+    if(!existingUser){
+        return res.status(404).json({message : "Unable to find user from this ID"});
+    }
 
     const isPasswordCorrect =bcrypt.compareSync(password , existingUser.password);
     
-    if(!isPasswordCorrect){
-        return res.status(404).json({message : "Unable to find user from this ID"});
-    }
+   
    
 
     if(!isPasswordCorrect){
