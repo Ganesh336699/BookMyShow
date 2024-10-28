@@ -4,8 +4,22 @@ import Homepage from "./components/Homepage";
 import Movies from "./components/Movies/Movies";
 import Admin from "./components/Admin/Admin";
 import Auth from "./components/Auth/Auth";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import Booking from "./components/Bookings/Booking";
+import UseProfile from "./profile/UseProfile";
+import AddMovie from "./components/Movies/AddMovie";
+import AdminProfile from "./profile/AdminProfile";
+axios.defaults.baseURL = "http://localhost:5000";
 
 function App() {
+
+
+  const isAdminLoggedIn =  useSelector((state) => state.admin.isLoggedIn);
+  const isUserLoggedIn =  useSelector((state) => state.user.isLoggedIn);
+  console.log("isAdminLoggedIn" , isAdminLoggedIn);
+   console.log("isUserLoggedIn :" ,  isUserLoggedIn);
+  
   return (
     <div >
    <Header/>
@@ -15,6 +29,11 @@ function App() {
      <Route path="/movies" element = {<Movies/>} />
      <Route path="/admin" element = {<Admin/>} />
      <Route path="/auth" element = {<Auth/>} />
+     <Route path="/user" element = {<UseProfile/>} />
+     <Route path="/adminProfile" element = {<AdminProfile/>} />
+     <Route path="/add" element = {<AddMovie/>} />
+
+     <Route path="/booking/:id" element = {<Booking/>} />
     </Routes>
    </section>
     </div>

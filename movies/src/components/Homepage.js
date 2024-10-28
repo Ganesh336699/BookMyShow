@@ -1,36 +1,65 @@
-import { Box, Typography } from '@mui/material';
-import React from 'react'
-import MovieItems from './Movies/MovieItems';
+import { Box, Button, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getAllMovies } from "../api-helpers/api-helpers.js";
+import MovieItems from "./Movies/MovieItems.js";
 
-const Homepage = () => {
+const HomePage = () => {
+  const [movies, setMovies] = useState([]);
+  useEffect(() => {
+    getAllMovies()
+      .then((data) => setMovies(data.movies))
+      .catch((err) => console.log(err));
+  }, []);
   return (
-    
-    <Box width={'100%'} height={'100%'} margin="auto" marginTop={2} >
-     <Box margin={"auto"} width="80%" height="50vh" padding={2} display="flex">
-     <img 
-          src="https://i.ytimg.com/vi/yEinBUJG2RI/maxresdefault.jpg"
-          alt="Rocketry"
-          width="100%"
-          height="100%"
+    <Box width={"100%"} height="100%" margin="auto" marginTop={2}>
+      <Box margin={"auto"} width="80%" height={"40vh"} padding={2}>
+        <img
+          src="https://i.ytimg.com/vi/bweRG6WueuM/maxresdefault.jpg"
+          alt="Brahmastra"
+          width={"100%"}
+          height={"100%"}
         />
-     </Box>
-     <Box padding={5} margin="auto">
+      </Box>
+      <Box padding={5} margin="auto">
         <Typography variant="h4" textAlign={"center"}>
           Latest Releases
         </Typography>
       </Box>
       <Box
-        gap={5}
-        margin="auto"
-        width="80%"
-        flexWrap={"wrap"}
+        margin={"auto"}
         display="flex"
+        width="80%"
         justifyContent={"center"}
+        alignItems="center"
+        flexWrap="wrap"
       >
-       {[1,2,3,4].map((item) => <MovieItems/>)}
+        {movies &&
+          movies
+            .slice(0, 4)
+            .map((movie, index) => (
+              <MovieItems
+                id={movie._id}
+                title={movie.title}
+                description={movie.description}
+                posterUrl={movie.posterUrl}
+                releaseDate={movie.releaseDate}
+                key={index}
+              />
+            ))}
+      </Box>
+      <Box display="flex" padding={5} margin="auto">
+        <Button
+          LinkComponent={Link}
+          to="/movies"
+          variant="outlined"
+          sx={{ margin: "auto", color: "#2b2d42" }}
+        >
+          View All Movies
+        </Button>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default Homepage;
+export default HomePage;
