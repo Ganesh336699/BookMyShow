@@ -2,6 +2,17 @@
 # 🎬**Movie Tickets Booking Web Application**
 An intuitive and feature-rich Movie Tickets Booking platform built using the MERN stack (MongoDB, Express.js, React, Node.js) along with Bcrypt and JWT for secure authentication, and MUI for a sleek, responsive user interface. Users can explore and book movie tickets, while admins can manage movie listings effectively.
 
+
+# Project Over View
+[ Video](https://drive.google.com/file/d/1ZZlxQSS4TCbTCHdpFHtvfvpfDu4azFCt/view?usp=sharing)
+
+
+
+
+
+
+
+
 ## 🚀 **Tech Stack**
 
 ## **Client:** 
