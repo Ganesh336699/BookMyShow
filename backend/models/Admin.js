@@ -1,25 +1,23 @@
-import mongoose from "mongoose";
-import Movie from "./Movie.js";
+import mongoose from 'mongoose';
+import Movie from './Movie.js';
 
 const adminSchema = new mongoose.Schema({
-
-
-    email : {
-        type : String,
-        unique : true,
-        required: true,
-    },
-    password : {
-        type : String ,
-        minLength : 6,
-        required: true,
-    },
-    addedMovies : [{
-
-        type : mongoose.Types.ObjectId,
-        ref: "Movie",
-    }]
-
+  email: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  password: {
+    type: String,
+    minLength: 6,
+    required: true
+  },
+  addedMovies: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'Movie'
+    }
+  ]
 });
 
-export default mongoose.model("Admin" , adminSchema);
+export default mongoose.model('Admin', adminSchema);
