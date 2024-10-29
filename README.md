@@ -45,17 +45,15 @@ movie-tickets-booking/
 ├── backend/                 
 │   ├── controllers/         # Business logic for handling requests
 │   ├── models/              # Mongoose models(Movie,Booking,User,Amin)
-│   ├── routes/              # API endpoint definitions
-│   ├── middlewar            # Middleware for authentication and error handling
-│   ├── config/              # Configuration files (database, JWT secret)
+│   ├── routes/              # API endpoint definitions           
+│   ├── .env/                # Configuration files (database, JWT secret)
 │   └── app.js               # Main server setup and configurations
 │
 └── movies/                
     ├── src/
-    │   ├── components/      # Reusable UI components (MovieList, BookingForm, etc.)
-    │   ├── pages/           # Page components (Home, MovieDetails, Bookings)
-    │   ├── context/         # Context API for global state management
-    │   ├── hooks/           # Custom React hooks for functionality
+    │   ├── api-helpers/     # For API calls to backend using axios # Reusable UI components (MovieList, BookingForm, etc.)
+    │   ├── components/      # Reusable UI components (MovieList, BookingForm, etc.)  
+    │   ├── store/           # Redux state management     
     │   ├── App.js           # Root app component
     │   └── index.js         # Entry point
     └── public/
