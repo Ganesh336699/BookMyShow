@@ -50,7 +50,7 @@ movie-tickets-booking/
 │   ├── config/              # Configuration files (database, JWT secret)
 │   └── app.js               # Main server setup and configurations
 │
-└── frontend/                
+└── movies/                
     ├── src/
     │   ├── components/      # Reusable UI components (MovieList, BookingForm, etc.)
     │   ├── pages/           # Page components (Home, MovieDetails, Bookings)
