@@ -1,4 +1,5 @@
 import {
+  
     Box,
     Button,
     Checkbox,
@@ -13,6 +14,8 @@ import {
     mb: 1,
   };
   const AddMovie = () => {
+
+    
     const [inputs, setInputs] = useState({
       title: "",
       description: "",
@@ -32,8 +35,11 @@ import {
       e.preventDefault();
       console.log(inputs, actors);
       addMovie({ ...inputs, actors })
-        .then((res) => console.log(res))
+        .then((res) => alert("Successfully added movie"))
         .catch((err) => console.log(err));
+      
+
+
     };
     return (
       <div>
